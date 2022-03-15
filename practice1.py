@@ -2,7 +2,8 @@ import cv2
 
 def main():
 
-    imgpath = "C:\\Users\\User\\Desktop\\misc\\4.1.04.tiff"
+    # imgpath = "C:\\Users\\User\\Desktop\\misc\\4.1.04.tiff"
+    imgpath = "C:\\Users\\1p2h3\\Desktop\\openCV\\photo\\bingsu.tiff"
     img = cv2.imread(imgpath)
 
     cv2.namedWindow('Lena',cv2.WINDOW_AUTOSIZE)
