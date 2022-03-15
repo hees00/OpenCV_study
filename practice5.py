@@ -1,3 +1,5 @@
+##Mini Project: OpenCV BGR Palette with Trackbars
+
 import cv2
 import numpy as np
 
@@ -18,7 +20,8 @@ def main():
         
         if cv2.waitKey(1) == 27: #esc버튼
             break
-        
+
+        #trackbar의 값을 각각  b,g,r값으로 넣어줌
         blue = cv2.getTrackbarPos('B',windowName)
         green = cv2.getTrackbarPos('G',windowName)
         red = cv2.getTrackbarPos('R',windowName)

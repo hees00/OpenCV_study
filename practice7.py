@@ -1,3 +1,5 @@
+##Mini Project: Mouse Events and Interactive Drawing
+
 import cv2
 import numpy as np
 
