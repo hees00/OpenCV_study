@@ -22,7 +22,6 @@ def main():
             cv2.imshow(windowName,frame)
 
             #1000/framerate
-            #오호 속도가 달라지는구먼
             if cv2.waitKey(33) == 27:
                 break
         else:
