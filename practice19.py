@@ -1,5 +1,15 @@
-#Displaying Multiple Images with Matplotlib 
+##Arithmetic Operations on Images 
+#7m22
 
+# Images <--> numbers
+
+# addition +
+# subtraction - 
+# division /
+# multiplication *
+
+from ast import Sub
+from turtle import title
 import cv2
 import matplotlib.pyplot as plt
 
@@ -11,16 +21,22 @@ def main():
     
     img1 = cv2.imread(imgpath1,1)
     img2 = cv2.imread(imgpath2,1)
-
-    #bgr을 rgb 배열로 바꿔줌
     img1 = cv2.cvtColor(img1, cv2.COLOR_BGR2RGB)
     img2 = cv2.cvtColor(img2, cv2.COLOR_BGR2RGB)
     
-    titles = ['image title1','image title2']
-    images= [img1,img2]
+    add= img1 + 50
     
-    for i in range(2):
-        plt.subplot(1, 2, i+1)
+    sub1= img1 - 50
+    sub2= 50 - img1
+    mult=img1 * 2
+    div=img1 / 2
+    
+    # titles = ['image title1','image title2','add','sub','sub2']
+    titles= ['img1','img2','mult','div']
+    images= [img1,img2,mult,div]
+    
+    for i in range(len(titles)):
+        plt.subplot(1, len(titles), i+1)
         plt.imshow(images[i])
         plt.title(titles[i])
         plt.xticks([])
