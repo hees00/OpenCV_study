@@ -1,5 +1,4 @@
 ##Arithmetic Operations on Images 
-#7m22
 
 # Images <--> numbers
 
@@ -37,7 +36,7 @@ def main():
     
     for i in range(len(titles)):
         plt.subplot(1, len(titles), i+1)
-        plt.imshow(images[i])
+        plt.imshow(images[i].astype('uint8'))
         plt.title(titles[i])
         plt.xticks([])
         plt.yticks([])
