@@ -1,9 +1,14 @@
-## Computing Negative of an Image   
+
+
+# cv2.warpAffine()
+# cv2.getRotationMatrix2D()
+
 
 import cv2
 import matplotlib.pyplot as plt
 
 def main():
+
 
     # path = "C:\\Users\\1p2h3\\Desktop\\openCV\\output\\"
     # imgpath1 = path + "test.jpg"
@@ -52,3 +57,4 @@ def main():
 if __name__ == "__main__":
     main()
     
+
