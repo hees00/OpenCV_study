@@ -15,6 +15,7 @@ def main():
         ret,frame =cap.read()
         
         hsv =cv2.cvtColor(frame,cv2.COLOR_BGR2HSV)
+        #h- 색상 s-채도 v-명도
         
         # #Blue
         # low = np.array([100,50,50])
@@ -27,10 +28,12 @@ def main():
         #red
         low = np.array([140,50,50])
         high = np.array([180,255,255])
-        
-        
+
+        # 범위내에 존재하면 그대로 아니면 0으로 반환
         image_mask = cv2.inRange(hsv,low,high)
-        output = cv2.bitwise_and(frame,frame,mask=image_mask)
+
+        # 공통으로 겹치는 부분 출력
+        output = cv2.bitwise_and(frame,frame, mask=image_mask)
         
         cv2.imshow("Image mask",image_mask)
         cv2.imshow("Original Webcam Feed",frame)

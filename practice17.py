@@ -5,10 +5,16 @@ import matplotlib.pyplot as plt
 
 def main():
     
-    path = "C:\\Users\\1p2h3\\Desktop\\openCV\\output\\"
-    imgpath1 = path + "test.jpg"
-    imgpath2 = path + "test2.jpg"
+   
     
+    # path = "C:\\Users\\1p2h3\\Desktop\\openCV\\output\\"
+    # imgpath1 = path + "test.jpg"
+    # imgpath2 = path + "test2.jpg"
+
+    path = "C:\\Users\\User\\Desktop\\misc\\"
+    imgpath1 = path + "4.1.04.tiff"
+    imgpath2 = path + "4.2.06.tiff"
+
     img1 = cv2.imread(imgpath1,1)
     img2 = cv2.imread(imgpath2,1)
 
@@ -25,7 +31,8 @@ def main():
         plt.title(titles[i])
         plt.xticks([])
         plt.yticks([])
-        
+
+
     plt.show()
 
 
