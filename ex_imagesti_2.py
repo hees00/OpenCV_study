@@ -1,5 +1,6 @@
 #이미지 여러장 stitching
 #첫번째 네번째 이미지 겹치는 부분이 적을 경우
+#이미지 경계 없도록 붙이는 중
 
 
 import numpy as np
@@ -33,7 +34,7 @@ def  matchNhomo(img1,img2):
 
     H, status = cv2.findHomography(dst, src, cv2.RANSAC, 5.0)
     print(H)
-    cv2.imshow('match', res)
+    # cv2.imshow('match', res)
 
     return H
 
@@ -41,11 +42,20 @@ def subImage(img1,img2):
     img1_gray = cv2.cvtColor(img1,cv2.COLOR_BGR2GRAY)
     img2_gray = cv2.cvtColor(img2, cv2.COLOR_BGR2GRAY)
 
-    diff = cv2.absdiff(img1_gray,img2_gray)
+    # diff = cv2.absdiff(img1_gray,img2_gray)
+    diff = cv2.subtract(img1_gray, img2_gray)
 
-    cv2.imshow('이미지 빼기',diff)
+    a,diff_hm= cv2.threshold(diff,60,255,cv2.THRESH_BINARY)
+    diff_hm = cv2.bitwise_not(diff_hm)
 
-    return diff
+    # cv2.imshow('이미지 빼기', diff)
+    diff_hm = cv2.bitwise_not(diff_hm)
+    res = cv2.bitwise_and(img1,img1,mask=diff_hm)
+
+    cv2.imshow('sub', diff)
+    cv2.imshow('mask',diff_hm)
+    cv2.imshow('subcolor', res)
+    return res
 
 
 
@@ -76,8 +86,9 @@ re4 = cv2.warpPerspective(img_ld, H_luld,(img_lu.shape[1] + img_lu.shape[1], img
 H_ldrd = matchNhomo(re4,img_rd)
 re5 = cv2.warpPerspective(img_rd, H_lurd,(img_lu.shape[1] + img_lu.shape[1], img_ru.shape[0]+img_ru.shape[0]))
 result3[0 : img_lu.shape[0], 0 : img_lu.shape[1]] = img_lu
-subImage(re4,result3)
-
+res4 = subImage(re4,result3)
+result3 = cv2.add(result3,res4)
+# result3 = cv2.addWeighted(result3, 0.5, re4, 0.5, 0)
 # result3 = cv2.addWeighted(result3, 0.5, re4, 0.5, 0)
 # result3 = cv2.addWeighted(result3, 0.5, re5, 0.5, 0)
 cv2.imshow('result3', result3)
