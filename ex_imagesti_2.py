@@ -46,12 +46,8 @@ def subImage(img1,img2):
     diff = cv2.subtract(img1_gray, img2_gray)
 
     a,diff_hm= cv2.threshold(diff,60,255,cv2.THRESH_BINARY)
-    diff_hm = cv2.bitwise_not(diff_hm)
-
-    # cv2.imshow('이미지 빼기', diff)
-    diff_hm = cv2.bitwise_not(diff_hm)
     res = cv2.bitwise_and(img1,img1,mask=diff_hm)
-
+    # cv2.copyTo(img1, diff_hm, img2)
     cv2.imshow('sub', diff)
     cv2.imshow('mask',diff_hm)
     cv2.imshow('subcolor', res)
