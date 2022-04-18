@@ -1,3 +1,5 @@
+##object 좌표 받기 해보는중
+
 import numpy as np
 import cv2
 
@@ -6,6 +8,8 @@ import cv2
 # imgpath2 = path + "ru.jpg"
 
 (major_ver, minor_ver, subminor_ver) = (cv2.__version__).split('.')
+
+
 
 def main():
     cap1 = cv2.VideoCapture(0)

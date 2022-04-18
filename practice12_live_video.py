@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 def main():
     windowName = "Live Video Feed"
     cv2.namedWindow(windowName)
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture(1)
 
     if cap.isOpened():
         ret, frame = cap.read()

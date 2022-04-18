@@ -7,6 +7,37 @@ import numpy as np
 import cv2
 
 
+def max_min(img):
+    height, width, channel = img.shape
+
+    out = np.zeros((height + 1, width + 1, channel), dtype=np.float)
+    out[1:1 + height, 1:1 + width] = img.copy().astype(np.float)
+    temp, max_out, min_out = out.copy(), out.copy(), out.copy()
+    for i in range(height):
+        for j in range(width):
+            for k in range(channel):
+                # max_out[1 + i, 1 + j, k] = np.max(temp[i:i + 3, j:j + 3, k])
+                min_out[1 + i, 1 + j, k] = np.min(temp[i:i + 3, j:j + 3, k])
+    # max_out = max_out[1: 1 + height, 1: 1 + width].astype(np.uint8)
+    min_out = min_out[1: 1 + height, 1: 1 + width].astype(np.uint8)
+
+    return min_out
+
+
+def minimumBoxFilter(n, img):
+  # Creates the shape of the kernel
+  size = (n, n)
+  shape = cv2.MORPH_RECT
+  kernel = cv2.getStructuringElement(shape, size)
+
+  # Applies the minimum filter with kernel NxN
+  imgResult = cv2.erode(img, kernel)
+  imgResult = cv2.resize(imgResult, dsize=(1000, 1000), interpolation=cv2.INTER_AREA)
+  # Shows the result
+  cv2.imshow('Result with n ' + str(n), imgResult)
+
+
+
 def im_move(img, x, y):
     h, w = img.shape[:-1]
     M = np.float32([[1, 0, x], [0, 1, y]])
@@ -88,6 +119,12 @@ result3 = cv2.add(result3,res4)
 # result3 = cv2.addWeighted(result3, 0.5, re4, 0.5, 0)
 # result3 = cv2.addWeighted(result3, 0.5, re5, 0.5, 0)
 cv2.imshow('result3', result3)
+dst = cv2.fastNlMeansDenoisingColored(result3,None,5,5,7,21)
+cv2.imshow('delete noise',dst)
+# minimumBoxFilter(3,result3)
+# cv2.imshow('maxfilter',max_min(result3))
+# result3=cv2.medianBlur(result3,3)
+# cv2.imshow('median fileter',result3)
 cv2.waitKey()
 
 
