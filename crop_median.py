@@ -81,11 +81,18 @@ def subImage(img1,img2):
     a,diff_hm= cv2.threshold(diff,60,255,cv2.THRESH_BINARY)
     res = cv2.bitwise_and(img1,img1,mask=diff_hm)
     # cv2.copyTo(img1, diff_hm, img2)
-    cv2.imshow('sub', diff)
-    cv2.imshow('mask',diff_hm)
-    cv2.imshow('subcolor', res)
+    # cv2.imshow('sub', diff)
+    # cv2.imshow('mask',diff_hm)
+    # cv2.imshow('subcolor', res)
     return res
 
+def crop_median(img):
+    img_median = img
+    bbox = cv2.selectROI(img , False)
+    img_median = cv2.medianBlur(img_median,3)
+    img_median = img_median[bbox[1]: bbox[1] + bbox[3], bbox[0]: bbox[0] + bbox[2]]
+    img[bbox[1]: bbox[1] + bbox[3], bbox[0]: bbox[0] + bbox[2]] = img_median
+    return img
 
 
 path = "C:\\Users\\User\\Desktop\\ssu\\photo\\"
@@ -121,13 +128,22 @@ result3 = cv2.add(result3,res4)
 # result3 = cv2.addWeighted(result3, 0.5, re4, 0.5, 0)
 # result3 = cv2.addWeighted(result3, 0.5, re5, 0.5, 0)
 cv2.imshow('result3', result3)
+cv2.imshow('minimum filter',max_min(result3))
+cv2.imshow('median fileter',cv2.medianBlur(result3,3))
+re_median = result3
+while(True):
+    re_median = crop_median(result3)
+    cv2.imshow('crop median', re_median)
+    if cv2.waitKey(1) == ord('a'):
+        cv2.destroyWindow('crop median')
+        break
+
+cv2.imshow('crop and median',re_median)
 # dst = cv2.fastNlMeansDenoisingColored(result3,None,5,5,7,21)
 # cv2.imshow('delete noise',dst)
 # minimumBoxFilter(3,result3)
-cv2.imshow('maxfilter',max_min(result3))
-result3=cv2.medianBlur(result3,3)
-cv2.imshow('median fileter',result3)
 cv2.waitKey()
+cv2.destroyAllWindows()
 
 
 
